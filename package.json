@@ -1,0 +1,50 @@
+{
+  "name": "json-renderers-specs",
+  "version": "1.2.1",
+  "description": "Headless component specification builder for json-renderers, compiling UI skeletons and data into JSON-to-DOM specs using json-to-spec",
+  "type": "module",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "docs",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keshavsoft/json-renderers-specs.git"
+  },
+  "homepage": "https://keshavsoft.github.io/json-renderers-specs/",
+  "bugs": {
+    "url": "https://github.com/keshavsoft/json-renderers-specs/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [
+    "json-renderers-specs",
+    "json-to-spec",
+    "json-to-dom",
+    "spec-builder",
+    "table",
+    "select",
+    "template",
+    "declarative-ui",
+    "headless"
+  ],
+  "author": "KeshavSoft",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.4.2"
+  },
+  "dependencies": {
+    "json-instruction-double": "^1.2.1",
+    "json-instruction-single": "^1.5.3",
+    "json-renderers-build-table-options": "^1.7.2",
+    "json-renderers-guard": "^1.5.3",
+    "json-transformer-funcs": "^1.24.7"
+  }
+}
