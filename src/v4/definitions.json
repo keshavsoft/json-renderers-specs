@@ -428,19 +428,85 @@
     "double": []
   },
   "dataList": {
+    "simple": {
+      "base": {
+        "tagName": "div",
+        "attributes": {
+          "data-role": "datalist-parent"
+        },
+        "children": []
+      },
+      "single": [
+        {
+          "narration": "Build datalist control from columns",
+          "destinationPath": {
+            "fileName": "base",
+            "dataRole": "datalist-parent",
+            "filePath": [
+              "children"
+            ]
+          },
+          "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+              "columns"
+            ]
+          },
+          "templateKey": "buildDataList",
+          "func": "fromCollection"
+        },
+        {
+          "narration": "Build datalist options from data",
+          "destinationPath": {
+            "fileName": "base",
+            "dataRole": "datalist-control",
+            "filePath": [
+              "children"
+            ]
+          },
+          "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+              "data"
+            ]
+          },
+          "templateKey": "buildOption",
+          "func": "fromCollection"
+        }
+      ],
+      "double": []
+    },
     "base": {
-      "tagName": "datalist",
+      "tagName": "div",
       "attributes": {
-        "id": "${columnName}",
-        "data-name": "${columnName}"
+        "data-role": "datalist-parent"
       },
       "children": []
     },
     "single": [
       {
-        "narration": "Build datalist options",
+        "narration": "Build datalist control from columns",
         "destinationPath": {
           "fileName": "base",
+          "dataRole": "datalist-parent",
+          "filePath": [
+            "children"
+          ]
+        },
+        "sourcePath": {
+          "fileName": "data",
+          "filePath": [
+            "columns"
+          ]
+        },
+        "templateKey": "buildDataList",
+        "func": "fromCollection"
+      },
+      {
+        "narration": "Build datalist options from data",
+        "destinationPath": {
+          "fileName": "base",
+          "dataRole": "datalist-control",
           "filePath": [
             "children"
           ]
