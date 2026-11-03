@@ -1,5 +1,5 @@
 const B = {
-  version: "1.2.1",
+  version: "1.3.1",
   name: "json-renderers-specs"
 }, k = (t) => {
   t && (globalThis.ks ?? (globalThis.ks = {}), globalThis.ks.jsonRenderersSpecs = {

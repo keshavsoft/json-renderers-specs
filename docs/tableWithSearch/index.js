@@ -1,4 +1,4 @@
-import render from "../dist/v2/min.js";
+import render from "../dist/min.js";
 import "https://keshavsoft.github.io/json-to-dom/dist/v42/min.js";
 
 // Single common source of truth

@@ -1,4 +1,4 @@
-import render from "../dist/v2/min.js";
+import render from "../dist/min.js";
 import { buildSpecElement } from "https://keshavsoft.github.io/json-to-tag/dist/v9/min.js";
 
 // Single common source of truth

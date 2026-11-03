@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Architecture & Roadmap — json-renderers-specs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    .roadmap-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+    }
+    .arch-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body class="bg-light text-dark">
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar navbar-expand navbar-dark bg-dark py-3 px-4 shadow-sm sticky-top">
+    <div class="container" style="max-width: 960px;">
+      <a class="navbar-brand fs-6 fw-bold text-white d-flex align-items-center" href="../index.html">
+        <i class="bi bi-arrow-left me-2 text-warning"></i>
+        <span>json-renderers-specs</span>
+        <span class="badge bg-primary ms-2 fs-7">v1.3.1</span>
+      </a>
+      <div class="d-flex align-items-center gap-2 ms-auto">
+        <span class="badge bg-secondary font-monospace">Architecture & Scope</span>
+        <a href="https://github.com/keshavsoft/json-renderers-specs" target="_blank" class="text-light text-decoration-none ms-2">
+          <i class="bi bi-github fs-5"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container py-4" style="max-width: 960px;">
+
+    <!-- Breadcrumb / Back Link -->
+    <div class="d-flex justify-content-between align-items-baseline mb-4">
+      <div>
+        <h1 class="h3 fw-bold mb-1 text-dark">Architecture, Scope & Roadmap</h1>
+        <p class="text-secondary small mb-0">How <code>json-renderers-specs</code> compiles headless specifications and where it is going.</p>
+      </div>
+      <a href="../index.html" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-grid me-1"></i>All Components
+      </a>
+    </div>
+
+    <!-- 1. The Core Philosophy -->
+    <section class="card arch-card shadow-sm border-0 p-4 mb-4">
+      <h2 class="h5 fw-bold text-dark mb-3">
+        <i class="bi bi-compass text-primary me-2"></i>1. The Core Philosophy
+      </h2>
+      <p class="text-secondary">
+        Traditional frontend architectures bind data fetching, state management, HTML creation, and DOM event listeners into monolithic components. 
+      </p>
+      <p class="text-secondary mb-0">
+        In the <strong>KeshavSoft Declarative UI Ecosystem</strong>, we enforce a strict separation of concerns:
+        <strong>data shaping</strong>, <strong>specification compilation</strong>, and <strong>DOM mounting</strong> are independent, portable phases.
+      </p>
+    </section>
+
+    <!-- 2. The 3-Tier Pipeline -->
+    <section class="card arch-card shadow-sm border-0 p-4 mb-4">
+      <h2 class="h5 fw-bold text-dark mb-3">
+        <i class="bi bi-diagram-3 text-success me-2"></i>2. The 3-Tier Pipeline
+      </h2>
+      
+      <div class="row g-3">
+        <!-- Tier 1 -->
+        <div class="col-md-4">
+          <div class="border rounded p-3 h-100 bg-light">
+            <span class="badge bg-secondary mb-2">Tier 1 • Input</span>
+            <h3 class="h6 fw-bold text-dark">Data & Schema</h3>
+            <p class="small text-secondary mb-0">
+              Raw business records (<code>data.json</code>) and column definitions (<code>columns.json</code>). Defined once and shared across all visualizations.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="col-md-4">
+          <div class="border rounded p-3 h-100 bg-white border-primary shadow-xs">
+            <span class="badge bg-primary mb-2">Tier 2 • THIS PACKAGE</span>
+            <h3 class="h6 fw-bold text-dark">json-renderers-specs</h3>
+            <p class="small text-secondary mb-0">
+              <strong>100% Headless.</strong> Compiles data + columns + blueprint definitions into an abstract JSON-to-DOM specification AST. Zero DOM nodes created.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="col-md-4">
+          <div class="border rounded p-3 h-100 bg-light">
+            <span class="badge bg-success mb-2">Tier 3 • Downstream</span>
+            <h3 class="h6 fw-bold text-dark">json-renderers</h3>
+            <p class="small text-secondary mb-0">
+              The browser runtime (using <code>@keshavsoft/json-to-dom</code>) that takes the compiled spec AST and mounts live <code>HTMLElement</code> nodes into the page.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Dependency Deep-Dive -->
+    <section class="card arch-card shadow-sm border-0 p-4 mb-4">
+      <h2 class="h5 fw-bold text-dark mb-3">
+        <i class="bi bi-box-seam text-warning me-2"></i>3. Dependency Purpose & Role
+      </h2>
+      <p class="text-secondary small mb-3">
+        Every single dependency in <code>package.json</code> serves a precise, singular responsibility without bloat:
+      </p>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light small text-secondary">
+            <tr>
+              <th scope="col" style="width: 32%;">Package</th>
+              <th scope="col" style="width: 18%;">Role</th>
+              <th scope="col" style="width: 50%;">Exact Responsibility</th>
+            </tr>
+          </thead>
+          <tbody class="small">
+            <tr>
+              <td>
+                <a href="https://www.npmjs.com/package/json-renderers-guard" target="_blank" class="fw-semibold text-decoration-none">
+                  json-renderers-guard
+                </a>
+              </td>
+              <td><span class="badge bg-danger-subtle text-danger">Validation</span></td>
+              <td>Enforces input contracts, safeguarding that <code>config</code>, <code>data</code>, and <code>columns</code> meet spec requirements.</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://www.npmjs.com/package/json-instruction-single" target="_blank" class="fw-semibold text-decoration-none">
+                  json-instruction-single
+                </a>
+              </td>
+              <td><span class="badge bg-primary-subtle text-primary">1D Transform</span></td>
+              <td>Executes 1-pass declarative instructions: reading source paths, applying transforms, and writing to target AST nodes.</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://www.npmjs.com/package/json-instruction-double" target="_blank" class="fw-semibold text-decoration-none">
+                  json-instruction-double
+                </a>
+              </td>
+              <td><span class="badge bg-primary-subtle text-primary">2D Transform</span></td>
+              <td>Executes nested matrix instructions (rows × columns) to compile tabular body structures (<code>&lt;tbody&gt;</code> cells).</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://www.npmjs.com/package/json-renderers-build-table-options" target="_blank" class="fw-semibold text-decoration-none">
+                  json-renderers-build-table-options
+                </a>
+              </td>
+              <td><span class="badge bg-info-subtle text-info">Table Features</span></td>
+              <td>Injects optional table UI enhancements, including serial numbering (<code>#</code>), action buttons (<code>show</code>), and search containers.</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://www.npmjs.com/package/json-transformer-funcs" target="_blank" class="fw-semibold text-decoration-none">
+                  json-transformer-funcs
+                </a>
+              </td>
+              <td><span class="badge bg-success-subtle text-success">Collection Projection</span></td>
+              <td>Provides <code>fromCollection</code> to project array records into <code>&lt;option&gt;</code> specs for select dropdowns and datalists.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. Project Roadmap -->
+    <section class="card arch-card shadow-sm border-0 p-4 mb-4">
+      <h2 class="h5 fw-bold text-dark mb-3">
+        <i class="bi bi-signpost-split text-info me-2"></i>4. Project Roadmap
+      </h2>
+
+      <div class="d-flex flex-column gap-3">
+        <!-- Phase 1 -->
+        <div class="border-start border-4 border-success ps-3 py-1">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="badge bg-success text-white roadmap-badge">Phase 1 • Shipped</span>
+            <h3 class="h6 fw-bold mb-0 text-dark">Core Component Specifications (v1.3.x)</h3>
+          </div>
+          <p class="text-secondary small mb-0">
+            Headless specification builders for Simple Table, Searchable Table, Declarative Form, Select Dropdown, DataList Autocomplete, and Search Input. Single source of truth for <code>columns.json</code> and <code>data.json</code>.
+          </p>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="border-start border-4 border-primary ps-3 py-1">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="badge bg-primary text-white roadmap-badge">Phase 2 • In Progress</span>
+            <h3 class="h6 fw-bold mb-0 text-dark">Containers, Layouts & Dialogs</h3>
+          </div>
+          <p class="text-secondary small mb-0">
+            Adding specifications for <strong>Card Grids</strong>, <strong>Tab Views</strong>, <strong>Modal Dialogs</strong>, and <strong>Pagination Specs</strong>—allowing full multi-screen dashboard generation from declarative JSON.
+          </p>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="border-start border-4 border-secondary ps-3 py-1">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="badge bg-secondary text-white roadmap-badge">Phase 3 • Future Scope</span>
+            <h3 class="h6 fw-bold mb-0 text-dark">Enterprise Schema Contracts & Validation</h3>
+          </div>
+          <p class="text-secondary small mb-0">
+            Deep integration with schema validation (required, regex, numeric boundaries) embedded in column definitions, multi-step wizard specifications, and column-level sorting/filter operators.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-4 border-top bg-white text-center text-secondary small">
+    <div class="container">
+      <p class="mb-1">
+        <strong>json-renderers-specs</strong> by <a href="https://github.com/keshavsoft" target="_blank" class="text-decoration-none text-dark fw-semibold">KeshavSoft</a>. MIT Licensed.
+      </p>
+      <div class="d-flex justify-content-center gap-3">
+        <a href="../index.html" class="text-secondary text-decoration-none">Component Demos</a>
+        <span>•</span>
+        <a href="https://github.com/keshavsoft/json-renderers-specs" class="text-secondary text-decoration-none">GitHub Repository</a>
+        <span>•</span>
+        <a href="https://www.npmjs.com/package/json-renderers-specs" class="text-secondary text-decoration-none">npm Package</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

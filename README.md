@@ -111,20 +111,35 @@ Each component has its own dedicated, un-bloated screen live on GitHub Pages:
 | **DataList Autocomplete** | `dataList` | [Open Screen →](https://keshavsoft.github.io/json-renderers-specs/dataList/) |
 | **Search Input** | `searchInput` | [Open Screen →](https://keshavsoft.github.io/json-renderers-specs/searchInput/) |
 | **Docs Portal & Catalog** | *Hub* | [Open Portal →](https://keshavsoft.github.io/json-renderers-specs/) |
+| **Architecture & Roadmap** | *Guide* | [Read Architecture →](https://keshavsoft.github.io/json-renderers-specs/architecture/) |
 
 ---
 
-## 🏗️ Architecture & Ecosystem
+## 🏗️ Architecture, Dependencies & Scope
 
-In the **KeshavSoft Declarative UI Ecosystem**, responsibilities are strictly separated:
+Full detailed guide available at [https://keshavsoft.github.io/json-renderers-specs/architecture/](https://keshavsoft.github.io/json-renderers-specs/architecture/).
 
-1. **`json-renderers-specs` (THIS PACKAGE)**:
-   - **100% Headless**: Zero DOM nodes created, zero `document` references.
-   - Compiles pure, deterministic JSON AST trees (`specAsJsonToDom`).
-   - Driven entirely by declarative instruction dictionaries (`definitions.json`).
+### The 3-Tier Pipeline
+1. **Tier 1 (Data & Schema)**: `data.json` + `columns.json`.
+2. **Tier 2 (Headless Spec Compiler — THIS REPO)**: Compiles declarative AST trees (`specAsJsonToDom`). Zero DOM creation.
+3. **Tier 3 (Browser DOM Renderer)**: Downstream `json-renderers` / `@keshavsoft/json-to-dom` mounts the AST to the physical DOM.
 
-2. **`@keshavsoft/json-to-dom`** / **`json-renderers`**:
-   - The downstream browser renderer that consumes the headless JSON AST and instantiates real DOM nodes (`document.createElement`).
+### Dependency Roles
+| Dependency | Role | Exact Responsibility |
+| :--- | :--- | :--- |
+| [`json-renderers-guard`](https://www.npmjs.com/package/json-renderers-guard) | Validation | Input contract guard verifying valid configurations. |
+| [`json-instruction-single`](https://www.npmjs.com/package/json-instruction-single) | 1D Engine | 1-pass declarative transforms from source paths to target AST. |
+| [`json-instruction-double`](https://www.npmjs.com/package/json-instruction-double) | 2D Engine | Matrix transforms (rows × cols) for tabular bodies (`<tbody>`). |
+| [`json-renderers-build-table-options`](https://www.npmjs.com/package/json-renderers-build-table-options) | Table Enhancer | Injects serial column (`#`) and row actions (`show`). |
+| [`json-transformer-funcs`](https://www.npmjs.com/package/json-transformer-funcs) | Collection | `fromCollection` projections for select & datalist options. |
+
+---
+
+## 🗺️ Project Roadmap
+
+- **Phase 1 (Shipped • v1.3.x)**: Simple Table, Searchable Table, Form, Select, DataList, SearchInput with unified common dataset.
+- **Phase 2 (In Progress)**: Card Grids, Tab Views, Modal Dialog specs, Pagination specs.
+- **Phase 3 (Enterprise Scope)**: Schema-driven validation rules (regex, required, min/max), multi-step wizards, and column-level sorting/filter operators.
 
 ---
 
@@ -134,7 +149,7 @@ In browser environments, the distribution bundle automatically registers under t
 
 ```javascript
 globalThis.ks.jsonRenderersSpecs = {
-  meta: { version: "1.2.1", name: "json-renderers-specs" },
+  meta: { version: "1.3.1", name: "json-renderers-specs" },
   render: [Function: render]
 };
 ```
